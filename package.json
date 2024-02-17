@@ -4,7 +4,7 @@
   "description": "It's a simple blog to share thoughts about the world of programming",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon ./index.js localhost 3000"
+    "start": "nodemon --inspect ./index.js localhost 3000"
   },
   "keywords": [],
   "author": "",

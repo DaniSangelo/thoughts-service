@@ -61,8 +61,8 @@ app.use('/', authRoutes);
 
 app.get('/', ThoughtsController.showAll);
 
-// conn.sync()
-conn.sync({force: true})
+conn.sync()
+// conn.sync({force: true})
     .then(() => {
         app.listen(+process.env.APP_PORT)
         console.info(`Server is running on port ${process.env.APP_PORT}`)
