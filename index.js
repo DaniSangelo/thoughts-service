@@ -8,7 +8,9 @@ const app = express();
 const conn = require('./db/conn')
 
 const Thought = require('./models/Thought')
-const User = require('./models/User')
+const User = require('./models/User');
+const thoughtsRoutes = require('./routes/thoughtsRoutes');
+const ThoughtsController = require('./controllers/ThoughtsController');
 
 app.engine('handlebars', exphbs.engine())
 app.set('view engine', 'handlebars')
@@ -34,7 +36,7 @@ app.use(
         }),
         cookie: {
             secure: false,
-            maxAge: process.env.SESSION_COOKIE_AGE,
+            maxAge: +process.env.SESSION_COOKIE_AGE,
             expires: new Date(Date.now() + process.env.SESSION_COOKIE_EXPIRATION),
             httpOnly: true,
         }
@@ -51,9 +53,14 @@ app.use((req, res, next) => {
     next();
 })
 
+// routes
+app.use('/thoughts', thoughtsRoutes);
+
+app.get('/', ThoughtsController.showAll);
+
 conn.sync()
     .then(() => {
-        app.listen(process.env.APP_PORT)
+        app.listen(+process.env.APP_PORT)
         console.info(`Server is running on port ${process.env.APP_PORT}`)
     })
     .catch((err) => console.log('DB connection failed: ' + err))
