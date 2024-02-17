@@ -27,6 +27,7 @@ app.use(express.json())
 
 app.use(
     session({
+        //this name will be shown in the browser development tools: Application -> Storage -> Cookies
         name: process.env.SESSION_NAME,
         secret: process.env.SESSION_SECRET,
         resave: false,
