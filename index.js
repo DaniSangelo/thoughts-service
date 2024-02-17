@@ -37,7 +37,7 @@ app.use(
         cookie: {
             secure: false,
             maxAge: +process.env.SESSION_COOKIE_AGE,
-            expires: new Date(Date.now() + process.env.SESSION_COOKIE_EXPIRATION),
+            expires: new Date(Date.now() + +process.env.SESSION_COOKIE_EXPIRATION),
             httpOnly: true,
         }
     })
