@@ -5,5 +5,6 @@ const checkAuth = require('../helpers/auth').checkAuth
 
 router.get('/', ThoughtsController.showAll)
 router.get('/dashboard', checkAuth, ThoughtsController.dashboard)
+router.get('/form-create', checkAuth, ThoughtsController.createThought)
 
 module.exports = router;
