@@ -71,4 +71,17 @@ module.exports = class ThoughtsController {
             console.log('Erro ao remover pensamento: ' + error?.message)
         }
     }
+
+    static async getDataForEdit(req, res) {
+        const id = req.params.id;
+        const thought = await Thought.findOne({
+            where: {
+                id
+            },
+            raw: true,
+        });
+
+        res.render('thoughts/edit', {thought})
+
+    }
 }
