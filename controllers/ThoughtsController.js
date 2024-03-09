@@ -1,15 +1,23 @@
 const Thought = require('../models/Thought')
 const User = require('../models/User')
+const { Op } = require('sequelize');
 
 module.exports = class ThoughtsController {
     static async showAll(req, res) {
+        const search = req.query.search ? req.query.search : '';
+
         const thoughtsData = await Thought.findAll({
-            include: User
+            include: User,
+            where: {
+                title: {[Op.like]: `%${search}%`}
+            }
         });
 
         const thoughts = thoughtsData.map((item) => item.get({plain: true}))
+        const count = thoughts.length;
+        const hasQuantity = count === 0 ? false : true;
 
-        res.render('thoughts/home', {thoughts})
+        res.render('thoughts/home', {thoughts, search, count, hasQuantity})
     }
 
     static async dashboard(req, res) {
