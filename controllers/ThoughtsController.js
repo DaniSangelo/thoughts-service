@@ -82,6 +82,26 @@ module.exports = class ThoughtsController {
         });
 
         res.render('thoughts/edit', {thought})
+    }
 
+    static async editSave(req, res) {
+        const thoughtId = req.body.id;
+        const thought = {
+            title: req.body.title,
+        }
+
+        try {
+            await Thought.update(thought, {
+                where: {
+                    id: thoughtId
+                }
+            });
+            req.flash('message', 'Pensamento atualizado com sucesso');
+            req.session.save(() => {
+                res.redirect('/thoughts/dashboard');
+            });
+        } catch (error) {
+            console.log('Erro ao atualizar registro: ' + error?.message)
+        }
     }
 }
