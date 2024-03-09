@@ -7,7 +7,24 @@ module.exports = class ThoughtsController {
     }
 
     static async dashboard(req, res) {
-        res.render('thoughts/dashboard')
+        const userId = req.session.userid;
+        const user = await User.findOne({
+            where: {
+                id: userId
+            },
+            include: Thought,
+            plain: true,
+        });
+
+        if (!user) {
+            res.redirect('/login');
+        }
+        
+        const thoughts = user.Thoughts.map((item) => {
+            return item.dataValues
+        });
+        
+        res.render('thoughts/dashboard', { thoughts })
     }
 
     static formCreate(req, res) {
