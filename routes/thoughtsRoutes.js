@@ -7,5 +7,6 @@ router.get('/', ThoughtsController.showAll)
 router.get('/dashboard', checkAuth, ThoughtsController.dashboard)
 router.get('/form-create', checkAuth, ThoughtsController.formCreate)
 router.post('/create/save', checkAuth, ThoughtsController.save)
+router.post('/remove', checkAuth, ThoughtsController.remove)
 
 module.exports = router;

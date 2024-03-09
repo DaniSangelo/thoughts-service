@@ -10,12 +10,19 @@
                 <span class="label">{{this.title}}</span>
                 <span class="actions">
                     <a href="/" class="btn">Editar</a>
-                    <form action="/">
+                    <form action="/thoughts/remove" method="POST">
                         <input type="hidden" name="id" value="{{this.id}}"/>
                         <input type="submit" value="Excluir" class="btn"/>
                     </form>
                 </span>
             </li>
         {{/each}}
+    </ul>
+    <ul>
+        {{#if hasNotThoughts}}
+            <p>
+                Você ainda não possui pensamentos. Comece <a href="/thoughts/form-create">por aqui</a>
+            </p>
+        {{/if}}
     </ul>
 </div>

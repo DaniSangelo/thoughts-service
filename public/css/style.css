@@ -189,3 +189,7 @@ form input[type="submit"]:hover,
     border-color: #FFF;
     margin: 0 0.5em;
 }
+
+.dashboard a {
+    color: #f6982d;
+}
