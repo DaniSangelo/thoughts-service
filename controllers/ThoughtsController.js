@@ -10,7 +10,25 @@ module.exports = class ThoughtsController {
         res.render('thoughts/dashboard')
     }
 
-    static createThought(req, res) {
+    static formCreate(req, res) {
         res.render('thoughts/form-create')
+    }
+
+    static async save(req, res) {
+        const thought = {
+            title: req.body.title,
+            UserId: req.session.userid
+        }
+
+        try {
+            await Thought.create(thought);
+
+            req.flash('message', 'Pensamento criado com sucesso');
+            req.session.save(() => {
+                res.redirect('/thoughts/dashboard')
+            })
+        } catch (error) {
+            console.log('Erro ao salvar pensamento: ' + error?.message || error);
+        }
     }
 }
